@@ -1,6 +1,5 @@
 package carbonIT.treasureHunting.configuration.service;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -11,15 +10,13 @@ public class PropertiesHandler {
 
 	private Properties properties;
 
-	final private static String PROPERTIES_FILE_PATH = "src/main/resources/application.properties";
-
 	private PropertiesHandler() {
 		this.properties = new Properties();
 		this.readPropertiesFile();
 	}
 	
 	private void readPropertiesFile() {
-		try (InputStream inputStream = new FileInputStream(PROPERTIES_FILE_PATH)) {
+		try (InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("application.properties")) {
 			this.properties.load(inputStream);
 		} catch (IOException e) {
 			e.printStackTrace();
